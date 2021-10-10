@@ -45,7 +45,6 @@ function Home() {
             webcamRef.current.video.height = videoHeight;
 
             const hand = await net.estimateHands(video);
-            move = false;
 
             if (hand.length > 0) {
                 const GE = new fp.GestureEstimator([pinchGesture]);
@@ -53,10 +52,10 @@ function Home() {
                 const gesture = await GE.estimate(hand[0].landmarks, 8);
 
                 try {
-                    // console.log(gesture.gestures[0].name); pinch
+                    console.log(gesture.gestures[0].name);
                     move = true;
                 } catch (TypeError) {
-                    //No pinch
+                    console.log("no pinch");
                     move = false;
                 }
             }
