@@ -10,7 +10,6 @@ class PolygonP extends Component {
         y: this.props.shapeY,
         targetX: this.props.targetX,
         targetY: this.props.targetY,
-        targetReached: false,
     };
 
     render() {
@@ -30,7 +29,6 @@ class PolygonP extends Component {
                     y={this.props.shapeY}
                     sides={this.props.sides}
                     radius={this.state.radius}
-                    draggable={!this.state.targetReached}
                     fill={this.props.fill}
                     stroke={"black"}
                     strokeWidth={4}
