@@ -21,7 +21,7 @@ setup();
 function Home() {
     const [shapeX, setX] = useState(0);
     const [shapeY, setY] = useState(0);
-    const [moving, setMove] = useState(false);
+    let move = true;
 
     const webcamRef = useRef(null);
 
@@ -46,8 +46,6 @@ function Home() {
 
             const hand = await net.estimateHands(video);
 
-            setMove(true);
-
             if (hand.length > 0) {
                 const GE = new fp.GestureEstimator([pinchGesture]);
 
@@ -55,14 +53,14 @@ function Home() {
 
                 try {
                     console.log(gesture.gestures[0].name);
-                    setMove(true);
+                    move = true;
                 } catch (TypeError) {
                     console.log("no pinch");
-                    setMove(false);
+                    move = false;
                 }
             }
 
-            if (hand.length == 1 && moving) {
+            if (hand.length == 1 && move) {
                 setX(
                     window.innerWidth -
                         (((hand[0].boundingBox.bottomRight[0] + hand[0].boundingBox.topLeft[0]) / 2 - 20) / 600.0) *
@@ -85,7 +83,7 @@ function Home() {
                 backgroundSize: document.body.scrollHeight * 1.35,
             }}
         >
-            <Canvas shapeX={shapeX} shapeY={shapeY} moving={moving} />
+            <Canvas shapeX={shapeX} shapeY={shapeY} />
             <Webcam
                 ref={webcamRef}
                 style={{

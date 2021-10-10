@@ -18,6 +18,7 @@ class Canvas extends Component {
             shapeIndices: this.shuffleIndices(this.state.shapeIndices),
             targetIndices: this.shuffleIndices(this.state.targetIndices),
             colors: this.shuffleIndices(this.state.colors),
+            snap: false,
         });
     }
 
@@ -33,15 +34,28 @@ class Canvas extends Component {
         return indices;
     };
 
+    componentDidUpdate() {
+        if (
+            Math.abs(this.props.shapeX - (this.state.targetIndices[0] * window.innerWidth) / 6) < 50 &&
+            Math.abs(this.props.shapeX - window.innerHeight / 3) < 50
+        ) {
+            this.setState({ snap: true });
+            console.log("SNAP", this.state.snap);
+        }
+    }
+
     render() {
         return (
             <div>
                 <Stage width={window.innerWidth} height={window.innerHeight}>
                     <Layer>
                         <PolygonP
-                            shapeX={this.props.shapeX}
-                            shapeY={this.props.shapeY}
-                            moving={this.props.moving}
+                            shapeX={
+                                this.state.snap
+                                    ? (this.state.targetIndices[0] * window.innerWidth) / 6
+                                    : this.props.shapeX
+                            }
+                            shapeY={this.state.snap ? window.innerHeight / 3 : this.props.shapeY}
                             targetX={(this.state.targetIndices[0] * window.innerWidth) / 6}
                             targetY={window.innerHeight / 3}
                             sides={3}
