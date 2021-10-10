@@ -8,7 +8,7 @@ import { pinchGesture } from "./pinch";
 import "./App.css";
 import Canvas from "./components/canvas";
 import background from "./assets/background.jpeg";
-import {drawHand} from "./utilities";
+import { drawHand } from "./utilities";
 import { Button, Navbar, Container } from "react-bootstrap";
 import { getAuth, signOut } from "@firebase/auth";
 import Nav from "./Nav";
@@ -39,6 +39,7 @@ function Home({ history }) {
             history.push("/");
         }
     }, []);
+
     const auth = getAuth();
     const user = auth.currentUser;
 
@@ -49,15 +50,15 @@ function Home({ history }) {
     const [curY, setCurY] = useState(0);
     const [active, setActive] = useState(false);
     let move = false;
-  
+
     const webcamRef = useRef(null);
     const canvasRef = useRef(null);
 
     const runHandpose = async () => {
-    setInterval(() => {
-      detect(net);
-    }, 250);
-  };
+        setInterval(() => {
+            detect(net);
+        }, 250);
+    };
 
     const detect = async (net) => {
         if (
@@ -71,12 +72,12 @@ function Home({ history }) {
 
             webcamRef.current.video.width = videoWidth;
             webcamRef.current.video.height = videoHeight;
-          
+
             canvasRef.current.width = videoWidth;
             canvasRef.current.height = videoHeight;
 
             const hand = await net.estimateHands(video);
-          
+
             const ctx = canvasRef.current.getContext("2d");
             drawHand(hand, ctx);
 
@@ -127,25 +128,12 @@ function Home({ history }) {
                 setActive(false);
             }
         }
-        if (hand.length == 1 && move) {
-            setX(
-                window.innerWidth -
-                    (((hand[0].boundingBox.bottomRight[0] + hand[0].boundingBox.topLeft[0]) / 2 - 20) / 600.0) *
-                        window.innerWidth
-            );
-            setY(
-                (((hand[0].boundingBox.bottomRight[1] + hand[0].boundingBox.topLeft[1]) / 2 - 15) / 440.0) *
-                    window.innerHeight
-            );
-        }
-    }
-};
-};
+    };
 
-  runHandpose();
+    runHandpose();
 
-  return (
-    <div
+    return (
+        <div
             style={{
                 backgroundImage: `url(${background})`,
                 backgroundSize: document.body.scrollHeight * 1.35,
@@ -171,31 +159,31 @@ function Home({ history }) {
 
             <Canvas shapeX={shapeX} shapeY={shapeY} curX={curX} curY={curY} active={active} />
             <Webcam
-          ref={webcamRef}
-          style={{
-            position: "fixed",
-            bottom: 0,
-            right: 0,
-            zindex: 9,
-            width: 240,
-            height: 180,
-          }}
-          mirrored
-        />
+                ref={webcamRef}
+                style={{
+                    position: "fixed",
+                    bottom: 0,
+                    right: 0,
+                    zindex: 9,
+                    width: 240,
+                    height: 180,
+                }}
+                mirrored
+            />
 
-        <canvas
-          ref={canvasRef}
-          style={{
-            position: "fixed",
-            textAlign: "center",
-            bottom: 0,
-            right: 0,
-            zindex: 9,
-            width: 240,
-            height: 180,
-            transform: "scaleX(-1)",
-          }}
-        />
+            <canvas
+                ref={canvasRef}
+                style={{
+                    position: "fixed",
+                    textAlign: "center",
+                    bottom: 0,
+                    right: 0,
+                    zindex: 9,
+                    width: 240,
+                    height: 180,
+                    transform: "scaleX(-1)",
+                }}
+            />
         </div>
     );
 }
