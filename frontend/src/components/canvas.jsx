@@ -40,7 +40,6 @@ class Canvas extends Component {
     };
 
     componentDidUpdate() {
-
         let snap = [...this.state.snap];
         let active = [...this.state.active];
 
@@ -74,7 +73,6 @@ class Canvas extends Component {
                     <Layer>
                         <PolygonP
                             shapeX={
-
                                 this.state.snap[0]
                                     ? (this.state.targetIndices[0] * window.innerWidth) / 6
                                     : this.state.shapeIdx === 0
