@@ -30,6 +30,7 @@ While we each had unique experiences with our respective parts of the project, g
 
 As we look to the future of our project, we plan on continuing our development by implementing new games and more features that will enable the project to more efficiently and comprehensively assist growing toddlers, infants, and families with limited resources. We also hope to improve our computer vision models to ultimately create a smoother user experience, as well as collecting user performance statistics that are stored for each user to ultimately give parents and medical providers a way to track the progress of their toddlers and infants as they continue to sharpen their fine motor skills, problem-solving skills, and others.
 
-## Demo Image
+## Demo Video
 
-![alt text](https://github.com/abi-kothapalli/Playground/blob/main/frontend/public/demo.png?raw=true)
+[![Demo Image](https://github.com/abi-kothapalli/Playground/blob/main/frontend/public/demo.png?raw=true)](https://www.youtube.com/watch?v=FUvxwq17Fy0)
+
